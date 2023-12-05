@@ -10,8 +10,8 @@ namespace Example
             // Uncomment the methods to see the results of the examples
             Processes exampleProcesses = new Processes();
             exampleProcesses.printAllProcesses();
-            exampleProcesses.terminateProcess();
-            //exampleProcesses.printIdByName();
+            //exampleProcesses.terminateProcess();
+            exampleProcesses.printIdByName();
         }
     }
 }

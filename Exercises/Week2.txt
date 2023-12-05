@@ -1,0 +1,176 @@
+Preperation:
+1: System.Diagnostics namespace
+2: You need the process class and the Start and WaitForExit methods to run a process.
+3:          Process[] chromes = Process.GetProcessesByName("chrome");
+            Console.WriteLine("{0} chrome processes", chromes.Length);
+            Thread.Sleep(5000);
+
+4:          Process[] processCollection = Process.GetProcesses();
+            foreach (Process p in processCollection)
+            {
+                Console.WriteLine(p.ProcessName + " " + p.Id);
+
+            }
+
+Exercise 1.1: 
+It does completly terminate the process if you give the right PID.
+
+Exercise 1.2:
+public void printIdByName()
+        {
+            // todo: Implement the body of this method that gets an input for a process name and prints corresponding id
+            Console.WriteLine("Enter process name");
+            var pname = Console.ReadLine();
+            Process[] processCollection = Process.GetProcesses();
+            foreach (Process p in processCollection)
+            {
+                if (pname.Equals(p.ProcessName.ToString()))
+                Console.WriteLine(p.Id);
+
+            }
+            Console.ReadKey();
+        }
+
+Exercise 2:
+
+Console.WriteLine("\n\nProcesses file:\n\n");
+               
+
+                var psi2 = new ProcessStartInfo
+                {
+                    RedirectStandardInput = true,
+                    RedirectStandardOutput = true,
+                    CreateNoWindow = true,
+                    UseShellExecute = false,
+                    WorkingDirectory = @"C:\Users\milan"
+                };
+
+                Process process2 = new Process() { StartInfo = psi2 };
+                process2.StartInfo.FileName = "cmd.exe";
+                process2.Start();
+                process.StandardInput.WriteLine("cd Documents\\Hogeschool_rotterdam\\Informatica_2022-2026\\2023-2024\\Analyse\\Concurrency\\Week2\\Processes\\bin\\Debug\\netcoreapp3.1");
+                process.StandardInput.Flush();
+                process.StandardInput.Close();
+                process2.WaitForExit();
+                Console.WriteLine(process2.StandardOutput.ReadToEnd());
+
+Exercise 3.1:
+I expect them to send the messages to the client and then print them to the console.
+
+Exercise 3.3:
+No, it says the file is locked.
+
+Exercise 3.4:
+They can't.
+
+Exercise 3.5:
+using System;
+using System.IO;
+using System.IO.Pipes;
+using System.Linq;
+
+namespace Exercise
+{
+    public class IPCNamedServer
+    {
+        public virtual void ipcServerCommunicate()
+        {
+            Console.WriteLine("Pipe Server is being executed ...");
+            Console.WriteLine("[Server] Enter a message to be reversed by the client (press ENTER to exit)");
+
+            //Send to client
+            var client = new NamedPipeClientStream("PipesOfConcurrency");
+            //Recieve back from client
+            var server = new NamedPipeServerStream("PipesOfConcurrency1");
+            client.Connect();
+
+
+            StreamWriter writer = new StreamWriter(client);
+
+            //Send message to client
+            while (true)
+            {
+
+                String input = Console.ReadLine();
+                if (String.IsNullOrEmpty(input))
+                    break;
+
+                else
+                {
+                    Console.WriteLine("\n\nSending message to client");
+                    writer.WriteLine(input);
+                    writer.Flush();
+                    break;
+                }
+
+
+            }
+
+            server.WaitForConnection();
+            StreamReader reader = new StreamReader(server);
+            //Receive message back from client
+            while (true)
+            {
+
+                String msg = reader.ReadLine();
+                if (String.IsNullOrEmpty(msg)) // Finish if nothing is entered
+                    break;
+                else
+                {
+                    Console.WriteLine("\n\nMessage went back to server");
+                    Console.WriteLine(msg); // Print the message received
+                    Console.WriteLine(String.Join("", msg.Reverse())); // Print the reverse of the received message
+
+                }
+                break;
+            }
+
+        }
+    }
+}
+
+using System;
+using System.IO;
+using System.IO.Pipes;
+using System.Linq;
+
+namespace Exercise
+{
+    public class IPCNamedClient
+    {
+        public virtual void ipcClientCommunicate()
+        {
+            Console.WriteLine("Pipe Client is being executed ...");
+            Console.WriteLine("[Client] waiting to receive a message");
+            //Receive message from server
+            var server = new NamedPipeServerStream("PipesOfConcurrency");
+            server.WaitForConnection();
+            //read from server
+            StreamReader reader = new StreamReader(server);
+
+            //Send it back to server
+            var client = new NamedPipeClientStream("PipesOfConcurrency1");
+            client.Connect();
+            StreamWriter writer = new StreamWriter(client);
+            while (true)
+            {
+
+                String msg = reader.ReadLine();
+                if (String.IsNullOrEmpty(msg))
+                    break;
+
+                else
+                {
+                    Console.WriteLine("message recieved");
+                    Console.WriteLine("Sending it back..");
+                    writer.WriteLine(msg);
+                    writer.Flush();
+                }
+
+            }
+        }
+    }
+}
+
+Exercise 4:
+

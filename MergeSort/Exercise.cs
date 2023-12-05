@@ -15,11 +15,11 @@ namespace Exercise
 
         public void printContent(String msg)
         {
-            Console.WriteLine(msg+"Content of the array is:");
+            Console.WriteLine(msg + "Content of the array is:");
             for (int i = 0; i < input.Length; i++)
-                Console.Write("data[{0}]={1} ;",i,input[i]);
+                Console.Write("data[{0}]={1} ;", i, input[i]);
         }
- 
+
         public void sortSeq(int left, int right)
         {
             if (left < right)

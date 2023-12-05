@@ -1,0 +1,19 @@
+Exercise 1.1:
+- Visual Studio 2022 = 69 threads
+- Google Chrome = 323 threads
+- Teams = 214 threads
+
+Exercise 1.2:
+- Around 25 threads per process are being added
+1: Renderer main thread, used for user interface, user input etc..
+2: Networking thread, used for getting things from the internet
+3: Javascript thread, used for executing javascript code
+4: Compositor thread, used for visual elements on screen
+5: GPU thread, used for GPU process handle tasks
+
+Exercise 2.2:
+
+A: The methods sortSeq and merge are the two methods that changes the order and rebuild the data.
+B: If you have acces to multiple processors you can make another file and dump for example the merge function in there and run it on the other processor. 
+	You then run the other program on another and BAM you have multiprocessing of sorts.
+C: If the sorting tasks don't need each other to be sorted it can be run simultaneously.

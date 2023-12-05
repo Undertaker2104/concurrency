@@ -1,38 +1,61 @@
 ﻿using System;
 using System.Diagnostics;
 
-/// This example shows how to define a process and start it.
-/// Check here: https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.process?view=netcore-3.1
-
-
 namespace Exercise
 {
     public class ProcessCreation
     {
         public virtual void createProcess()
         {
-            // Todo: Create an object from ProcessStartInfo
-            // Implement your code here ...
+            Console.WriteLine("\n\nDir command:\n\n");
+            var psi = new ProcessStartInfo
+            {
+                RedirectStandardInput = true,
+                RedirectStandardOutput = true,
+                CreateNoWindow = true,
+                UseShellExecute = false,
+                WorkingDirectory = @"C:\Users\milan"
+            };
 
-
-            // Todo: Provide the path and the name of your executable file
-            // Implement your code here
-
-
-            //prInfo.CreateNoWindow = false; // This means start the process in a new window
-            //prInfo.UseShellExecute = false;
+            Process process = new Process() { StartInfo = psi };
+            process.StartInfo.FileName = "cmd.exe";
+            process.Start();
+            process.StandardInput.WriteLine("dir");
+            process.StandardInput.Flush();
+            process.StandardInput.Close();
+            process.WaitForExit();
+            Console.WriteLine(process.StandardOutput.ReadToEnd());
 
             try
             {
-                // Todo: Start your process and then wait for its exit
-                // Implement your code here
+                // Execute a simple command (e.g., dir)
 
+                //Console.WriteLine(process.StandardOutput.ReadToEnd());
+
+                // Run the compiled version of the Processes project
+                Console.WriteLine("\n\nProcesses file:\n\n");
+                var psi2 = new ProcessStartInfo
+                {
+                    CreateNoWindow = false,
+                    UseShellExecute = false,
+
+                    FileName = @"C:\Users\milan\OneDrive\Documenten\GitHub\concurrency\Processes\bin\Debug\net6.0\Processes.exe"
+                };
+
+                Process process2 = new Process
+                {
+                    StartInfo = psi2
+                };
+                process2.Start();
+                process2.WaitForExit();
             }
             catch (Exception e)
             {
                 Console.Out.WriteLine(e.Message);
             }
-
         }
     }
 }
+
+
+
