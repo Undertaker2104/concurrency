@@ -1,7 +1,8 @@
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.IO.Pipes;
-using System.Linq
+using System.Linq;
 public class Example
 {
     public static void RecieveDataFromServerExecuteProgram()
@@ -20,21 +21,20 @@ public class Example
 
         Console.WriteLine("Client recieved the data...");
 
-
         var psi = new ProcessStartInfo
         {
             CreateNoWindow = false,
             UseShellExecute = false,
+            FileName = msg
+        };
 
-            FileName = msg;
-    };
-
-    Process process = new Process
-    {
-        StartInfo = psi1
-    };
-    process.Start();
-    process2.WaitForExit();
+        Process process = new Process
+        {
+            StartInfo = psi
+        };
+        process.Start();
+        process.WaitForExit();
 
     }
+
 }

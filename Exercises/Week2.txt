@@ -174,3 +174,90 @@ namespace Exercise
 
 Exercise 4:
 
+Client:
+using System;
+using System.Diagnostics;
+using System.IO;
+using System.IO.Pipes;
+using System.Linq;
+public class Example
+{
+    public static void RecieveDataFromServerExecuteProgram()
+    {
+        Console.WriteLine("Pipe Client is being executed ...");
+
+        //Receive message from server
+        var server = new NamedPipeServerStream("atHome");
+        server.WaitForConnection();
+
+        StreamReader reader = new StreamReader(server);
+        string msg = reader.ReadLine();
+
+        if (string.IsNullOrEmpty(msg))
+            Console.WriteLine("Something went wrong. The client didn't recieve the data.");
+
+        Console.WriteLine("Client recieved the data...");
+
+        var psi = new ProcessStartInfo
+        {
+            CreateNoWindow = false,
+            UseShellExecute = false,
+            FileName = msg
+        };
+
+        Process process = new Process
+        {
+            StartInfo = psi
+        };
+        process.Start();
+        process.WaitForExit();
+
+    }
+
+}
+
+Server:
+using System;
+using System.IO;
+using System.IO.Pipes;
+using System.Linq;
+public class Example
+{
+    public static void SendDataToClient(string name, string path)
+    {
+        Console.WriteLine("Pipe Server is being executed ...");
+
+        //Send to client
+        var client = new NamedPipeClientStream("atHome");
+        client.Connect();
+        StreamWriter writer = new StreamWriter(client);
+
+        if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(path))
+            Console.WriteLine("One or both of the parameters is empty!");
+
+        Console.WriteLine("Sending data to the client...");
+        Console.WriteLine($"Executing {name}...");
+        writer.WriteLine(path);
+        writer.Flush();
+
+
+    }
+}
+
+Program server:
+
+public class Program
+{
+    public static void Main()
+    {
+        //Example is server
+        string fileName = "Processes.exe";
+        string filePath = @"C:\Users\milan\OneDrive\Documenten\GitHub\concurrency\Processes\bin\Debug\net6.0\Processes.exe";
+
+        Example.SendDataToClient(fileName, filePath);
+
+        //Example2 is client
+    }
+}
+
+

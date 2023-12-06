@@ -1,10 +1,9 @@
-﻿namespace Example
+﻿
+public class Program
 {
-    public class Program
+    public static void Main()
     {
-        public static void Main()
-        {
-            Example.RecieveDataFromServerExecuteProgram();
-        }
+        Example.RecieveDataFromServerExecuteProgram();
     }
 }
+
