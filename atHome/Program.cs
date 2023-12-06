@@ -1,11 +1,16 @@
-﻿using Example;
-using Example2;
-public class Program
+﻿namespace Example
 {
-    public static void Main()
+    public class Program
     {
-        //Example is server
-        Example server = new Example("", "");
-        //Example2 is client
+        public static void Main()
+        {
+            //Example is server
+            string fileName = "Processes.dll";
+            string filePath = "C:\Users\milan\OneDrive\Documenten\GitHub\concurrency\Processes\bin\Debug\net6.0\Processes.deps.json";
+
+            Example.SendDataToClient(fileName, filePath);
+
+            //Example2 is client
+        }
     }
 }
