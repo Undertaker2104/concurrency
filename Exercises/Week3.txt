@@ -1,3 +1,64 @@
-Preperation 1:
+Preperation:
+1. The System.Threading namespace.
+2. Thread thread = new Thread (go);
+3. You can pass it as parameters when initiating a new thread object.
+4. Create a method to be executed by the thread, then you need to create an instance of the 'thread' class. Finally start the thread.
+5. It is the initial thread of execution that is created when your program starts.
+6. The new thread begins to execute concurrently with the main thread.
+7. Use .Join() to block/join a thread.
+8. The progam may continue to run, and the other thread may or may not complete its execution.
 
-Exercise 1
+Exercise 1:
+1.  mov eax, A 
+    add eax, B
+    mov C, eax
+2.1
+    Thread 1: X = A + B;
+    Thread 2:           Y = C + D;
+    
+    Thread 1:           X = A + B;
+    Thread 2: Y = C + D;
+2.2
+    It's impossible for thread 1 to resume execution before thread 2 finishes its instructions. 
+    It's impossible for thread 2 to execute another instruction before thread 1 completes it second instruction. 
+    It's impossible for thread 2 to execute another instruction before thread 1 completes it second instruction. 
+
+Exercise 2.1:
+Process proc = Process.GetCurrentProcess();
+
+Exercise 2.2:
+You can make a for-loop and put them into an array. 
+You define the task by giving the method/instruction as a parameter when you create the thread.
+By using the Thread.Sleep()
+
+Exercise 2.3:
+First the threads ids are printed and then put on sleep for a few seconds. Then the threads are started and preforming their assigned tasks.
+After this the they are put to sleep again for a few seconds and then joined to the main thread.
+In the thread join file the classname and then the method name given as parameters. In the thread creation class they are given using => instead of inside ().
+The program will be slower if you do it that way, but it will print the exact same result.
+
+Exercise 3.1:
+It takes 15159 milisec.
+
+Exercise 3.2:
+The stopwatch task and the task that calls the primenumber method.
+
+Exercise 3.3:
+    Stopwatch sw = new Stopwatch();
+    Thread minMax1 = new Thread(() => PrimeNumbers.printPrimes(m, M));
+    Thread stopwatch = new Thread(() => sw.Start());
+    stopwatch.Start();
+    minMax1.Start();
+    minMax1.Join();
+    stopwatch.Join();
+    Console.WriteLine($"The elapsed time is: {sw.ElapsedMilliseconds} milisec");
+
+Exercise 3.4:
+My version takes 15066 and the other 15159, so my version is faster and more efficient.
+
+Exercise 4.1:
+left sort and right sort.
+
+Exercise 4.2:
+See code in ../MergeSort/Exercise.cs
+

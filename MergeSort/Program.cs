@@ -21,7 +21,9 @@ namespace Program
             Thread.Sleep(5000000);
             // #TODO:
             // uncomment this only if the solution is available
-            //Console.WriteLine("\n Now concurrent sort will be running ...\n");
+            Console.WriteLine("\n Now concurrent sort will be running ...\n");
+            ConcurrentMergeSort conMergeSort = new ConcurrentMergeSort();
+            conMergeSort.sortCon(arr);
             //SolutionConcurrentMergeSort concMergeSort = new SolutionConcurrentMergeSort();
             //concMergeSort.sortCon(arr);
 

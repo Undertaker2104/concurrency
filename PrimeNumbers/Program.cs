@@ -14,12 +14,12 @@ namespace Program
     {
         static void Main(string[] args)
         {
-            
+
             int min = 5, max = 100000;
 
             ConPrimeNumbers pn = new ConPrimeNumbers();
 
-            pn.runSequential(min, max);
+            //pn.runSequential(min, max);
 
             Thread.Sleep(5000);
 

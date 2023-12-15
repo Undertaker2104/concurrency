@@ -19,6 +19,14 @@ namespace Concurrent
         public void runConcurrent(int m, int M)
         {
             // Todo 1: Create two threads, define their segments and start them. Join them all to have all the work done.
+            Stopwatch sw = new Stopwatch();
+            Thread minMax1 = new Thread(() => PrimeNumbers.printPrimes(m, M));
+            Thread stopwatch = new Thread(() => sw.Start());
+            stopwatch.Start();
+            minMax1.Start();
+            minMax1.Join();
+            stopwatch.Join();
+            Console.WriteLine($"The elapsed time is: {sw.ElapsedMilliseconds} milisec");
         }
 
     }

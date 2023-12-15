@@ -78,17 +78,26 @@ namespace Exercise
         public virtual void sortCon(int[] d)
         {
             // Todo 1: Instantiate an object of mergeSort.
-
+            SequentialMergeSort mergeSort = new SequentialMergeSort(d);
             // Todo 2: Divide the main array into two pieces: left and right. Where is the middle?
-
+            int left = 0;
+            int right = d.Length - 1;
+            int middle = (left + right) / 2;
             // Todo 3: Give the tasks. Each thread sorts one piece independent from the other.
+            Thread leftSortThread = new Thread(() => mergeSort.sortSeq(left, middle));
+            Thread rightSortThread = new Thread(() => mergeSort.sortSeq(middle + 1, right));
 
             // Todo 4: Start the threads.
+            leftSortThread.Start();
+            rightSortThread.Start();
 
             // Todo 5: Join to the working threads.
+            leftSortThread.Join();
+            rightSortThread.Join();
 
             // Todo 6: Merge the results to create the complete sorted array. Then print the content
+            mergeSort.merge(left, middle, right);
+            mergeSort.printContent("Concurrently done");
         }
-
     }
 }

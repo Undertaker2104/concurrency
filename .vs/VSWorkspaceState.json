@@ -2,9 +2,11 @@
   "ExpandedNodes": [
     "",
     "\\Exercises",
+    "\\IPCNamedClient",
+    "\\IPCNamedServer",
     "\\ProcessCreation",
     "\\Processes"
   ],
-  "SelectedNode": "\\ProcessCreation\\Exercise.cs",
+  "SelectedNode": "\\IPCNamedServer\\Exercise.cs",
   "PreviewInSolutionExplorer": false
 }
